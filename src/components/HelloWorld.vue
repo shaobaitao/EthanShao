@@ -30,25 +30,18 @@
             change="change"
         >
             <v-btn>
-                <span>QQ</span>
-                <i class="TaoFonts tao-QQ"></i>
-            </v-btn>
-            <v-btn>
-                <span>WeChat</span>
-                <i class="TaoFonts tao-wechat"></i>
-            </v-btn>
-            <v-btn>
                 <span>Weibo</span>
                 <i class="TaoFonts tao-weibo"></i>
-            </v-btn>
-            <v-btn>
-                <span>GitHub</span>
-                <i class="TaoFonts tao-GitHub"></i>
             </v-btn>
             <v-btn>
                 <span>Bilibili</span>
                 <i class="TaoFonts tao-bilibili-line"></i>
             </v-btn>
+            <v-btn>
+                <span>GitHub</span>
+                <i class="TaoFonts tao-GitHub"></i>
+            </v-btn>
+
             <v-btn>
                 <span>NetEase</span>
                 <i class="TaoFonts tao-netease-cloud-music-line"></i>
@@ -69,7 +62,7 @@ export default {
         msg: String
     },
     data: () => ({
-        iconColorIndex: 3,
+        iconColorIndex: 2,
         active:true,
     }),
     methods:{
@@ -80,13 +73,11 @@ export default {
     computed: {
         getColor () {
             switch (this.iconColorIndex) {
-                case 0: return 'rgba(0,115,170,1)'
-                case 1: return 'rgba(2,187,14,1)'
-                case 2: return 'rgba(230,22,45,1)'
-                case 3: return ''
-                case 4: return 'rgba(251,114,153,1)'
-                case 5: return 'rgba(230,0,38,1)'
-                case 6: return 'rgba(216,50,160,1)'
+                case 0: return 'rgba(230,22,45,1)'
+                case 1: return 'rgba(251,114,153,1)'
+                case 2: return ''
+                case 3: return 'rgba(230,0,38,1)'
+                case 4: return 'rgba(216,50,160,1)'
                 default: return 'green darken-2'
             }
         },
@@ -97,46 +88,66 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .main {
-    background-image: url("./../assets/sky.png");
+    background-image: linear-gradient(#0a0f1f, #0d1325);
     background-position: center;
+    background-attachment:fixed;
+
     margin: 0 auto;
-    width: 100%;
+    width: 100vw;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
+    font-size: calc(10px + 0.33vw);
     color: aliceblue;
 }
 .TaoFonts{
     font-size: 1.6rem;
 }
 .introduction {
-    margin: 50px;
-    width: 40vw;
+    padding: 5vh 10vw;
+    width: 65vw;
 }
 .v-bottom-navigation{
     position: fixed;
     bottom: 0;
 }
+.v-item-group.v-bottom-navigation{
+    box-shadow: none;
+}
+.v-item-group.v-bottom-navigation .v-btn{
+    max-width: 80px;
+}
+h1{
+    font-size: 3.5em;
+}
+h2{
+    font-size: 2em;
+}
+h3 {
+    font-size: 1.3em;
+    margin: 40px 0 0;
+}
+h4 {
+    font-size: 1em;
+    margin: 40px 0 0;
+}
+
 @media screen and (max-width: 1080px) {
     .main {
-        width: 100vw;
+        background-size: auto 100%;
+    }
+    h3{
+        font-size: 1.5em;
     }
     .introduction {
         width: 80vw;
     }
     .v-bottom-navigation{
         position: static;
+        box-shadow: none;
+
     }
 }
-
-h3 {
-    margin: 40px 0 0;
-}
-h4 {
-    margin: 40px 0 0;
-}
-
 </style>
