@@ -7,12 +7,12 @@
         >
             <v-icon>mdi-chat-plus-outline</v-icon>
         </v-btn>
+
         <transition name="ScrollY" mode="out-in">
             <div class="introduction"
                  v-if="introShow&&!overlay"
                  :key="introShow"
-
-                 v-touch="{up: () => {this.introShow=!this.introShow},}"
+                 @click="introShow=!introShow"
             >
                 <h1>Hello</h1>
                 <h2>My name is Ethan Shao</h2>
@@ -24,23 +24,24 @@
                 </h3>
                 <h3>
                     If you happen to speak Chinese, my Chinese name is 邵柏涛 (shào bǎi tāo).
-                    You can also find me on Social media and the links is at the bottom of the page.
+                    You can also find me on Social media under the name shaobaitao.
                 </h3>
                 <h4 style="text-align: right">January 29, 2021</h4>
             </div>
             <div class="introduction"
                  :key="introShow"
                  v-if="!introShow&&!overlay"
-                 v-touch="{up: () => {this.introShow=!this.introShow},}"
+                 @click="introShow=!introShow"
             >
                 <h3>
                     Outside of programming, I enjoy PC Games, Movies, TV series and Music, like
                     <i>Kerbal Space Program , Grand Theft Auto V , League of Legends , </i>
                     <i>Marvel movies , Mission impossible , Netflix Dark series </i>
-                    and one of my favorite songs is <i>We Don't Talk Anymore</i>
+                    and one of my favorite songs is <i>We Don't Talk Anymore.</i>
                 </h3>
             </div>
         </transition>
+
         <transition name="ScrollY">
             <v-footer
                 color="rgba(0,0,0,0)"
@@ -48,23 +49,11 @@
                 absolute
                 v-show="!overlay"
             >
-                <v-card
-                    flat
-                    tile
-                    class="text-center"
-                    width="100vw"
-                    color="rgba(0,0,0,0)"
+                <v-card flat tile class="text-center" width="100vw" color="rgba(0,0,0,0)"
                 >
                     <v-card-text>
-                        <v-btn
-                            v-for="(icon, index) in icons"
-                            :key="icon"
-                            :color="getColor"
-                            class="mx-4 white--text"
-                            icon
-                        >
-                            <i :class="icon" @click="socialLinks(index)"></i>
-
+                        <v-btn icon v-for="(icon, index) in icons" :key="icon" class="mx-2 white--text">
+                            <i :class="icon"  @click="socialLinks(index)"></i>
                         </v-btn>
                     </v-card-text>
                     <!--                <v-card-text class="white&#45;&#45;text">-->
@@ -72,7 +61,6 @@
                     <!--                </v-card-text>-->
                 </v-card>
             </v-footer>
-
         </transition>
 
         <v-navigation-drawer
@@ -212,7 +200,7 @@ export default {
     max-width: 1000px;
     text-align: justify;
     text-justify: inter-word;
-
+    cursor: pointer;
 }
 
 .v-bottom-navigation {
