@@ -1,12 +1,19 @@
 <template>
     <div class="main">
-        <v-btn icon color="aliceblue" dark @click.stop="drawer = !drawer"
+        <v-btn icon color="aliceblue" dark
+               @click.stop="drawer = !drawer"
+               v-show="!overlay"
                style="position: fixed; left: calc(20px + 1vw); top:calc(20px + 1vw);"
         >
-            <v-icon>mdi-magnify</v-icon>
+            <v-icon>mdi-chat-plus-outline</v-icon>
         </v-btn>
-        <transition name="ScrollYReverse">
-            <div class="introduction" v-show="!overlay">
+        <transition name="ScrollY" mode="out-in">
+            <div class="introduction"
+                 v-if="introShow&&!overlay"
+                 :key="introShow"
+
+                 v-touch="{up: () => {this.introShow=!this.introShow},}"
+            >
                 <h1>Hello</h1>
                 <h2>My name is Ethan Shao</h2>
                 <h3>
@@ -15,76 +22,90 @@
                     Besides,I'm also interested in back end, Android, algorithmic contests.
                     You can follow me on Github where I mostly upload my project codes.
                 </h3>
-<!--                <h3>-->
-<!--                    If you happen to speak Chinese, my Chinese name is 邵柏涛 (shào bǎi tāo).-->
-<!--                    You can also find me on Social media and the links is at the bottom of the page.-->
-<!--                </h3>-->
-<!--                <h3>-->
-<!--                    Outside of programming, I enjoy PC Games, Movies, TV series and Music, like-->
-<!--                    <i>Kerbal Space Program , Grand Theft Auto V , League of Legends , </i>-->
-<!--                    <i>Marvel movies , Mission impossible , Netflix Dark series </i>-->
-<!--                    and one of my favorite songs is <i>We Don't Talk Anymore</i>-->
-<!--                </h3>-->
+                <h3>
+                    If you happen to speak Chinese, my Chinese name is 邵柏涛 (shào bǎi tāo).
+                    You can also find me on Social media and the links is at the bottom of the page.
+                </h3>
                 <h4 style="text-align: right">January 29, 2021</h4>
-
+            </div>
+            <div class="introduction"
+                 :key="introShow"
+                 v-if="!introShow&&!overlay"
+                 v-touch="{up: () => {this.introShow=!this.introShow},}"
+            >
+                <h3>
+                    Outside of programming, I enjoy PC Games, Movies, TV series and Music, like
+                    <i>Kerbal Space Program , Grand Theft Auto V , League of Legends , </i>
+                    <i>Marvel movies , Mission impossible , Netflix Dark series </i>
+                    and one of my favorite songs is <i>We Don't Talk Anymore</i>
+                </h3>
             </div>
         </transition>
         <transition name="ScrollY">
-            <v-bottom-navigation
-                v-show="!overlay"
-                v-model="iconColorIndex"
-                :input-value="active"
-                :color="getColor"
-                background-color="rgba(0,0,0,0)"
-                dark
-            >
-                <v-btn @click="socialLinks(0)">
-                    <span>Weibo</span>
-                    <i class="TaoFonts tao-weibo"></i>
-                </v-btn>
-                <v-btn @click="socialLinks(1)">
-                    <span>GitHub</span>
-                    <i class="TaoFonts tao-GitHub"></i>
-                </v-btn>
-                <v-btn @click="socialLinks(2)">
-                    <span>Bilibili</span>
-                    <i class="TaoFonts tao-bilibili-line"></i>
-                </v-btn>
-            </v-bottom-navigation>
-        </transition>
-            <v-navigation-drawer
-                v-model="drawer"
+            <v-footer
+                color="rgba(0,0,0,0)"
+                padless
                 absolute
-                temporary
-
+                v-show="!overlay"
             >
-                <v-list-item>
-                    <v-list-item-avatar>
-                        <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
-                    </v-list-item-avatar>
+                <v-card
+                    flat
+                    tile
+                    class="text-center"
+                    width="100vw"
+                    color="rgba(0,0,0,0)"
+                >
+                    <v-card-text>
+                        <v-btn
+                            v-for="(icon, index) in icons"
+                            :key="icon"
+                            :color="getColor"
+                            class="mx-4 white--text"
+                            icon
+                        >
+                            <i :class="icon" @click="socialLinks(index)"></i>
+
+                        </v-btn>
+                    </v-card-text>
+                    <!--                <v-card-text class="white&#45;&#45;text">-->
+                    <!--                    {{ new Date().getFullYear() }} — <strong>Vuetify</strong>-->
+                    <!--                </v-card-text>-->
+                </v-card>
+            </v-footer>
+
+        </transition>
+
+        <v-navigation-drawer
+            v-model="drawer"
+            absolute
+            temporary
+        >
+            <v-list-item>
+                <v-list-item-avatar>
+                    <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
+                </v-list-item-avatar>
+
+                <v-list-item-content>
+                    <v-list-item-title>John Leider</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+            <v-divider></v-divider>
+            <v-list dense>
+                <v-list-item
+                    v-for="item in items"
+                    :key="item.title"
+                    link
+                >
+                    <v-list-item-icon>
+                        <v-icon>{{ item.icon }}</v-icon>
+                    </v-list-item-icon>
 
                     <v-list-item-content>
-                        <v-list-item-title>John Leider</v-list-item-title>
+                        <v-list-item-title>{{ item.title }}</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-divider></v-divider>
-                <v-list dense>
-                    <v-list-item
-                        v-for="item in items"
-                        :key="item.title"
-                        link
-                    >
-                        <v-list-item-icon>
-                            <v-icon>{{ item.icon }}</v-icon>
-                        </v-list-item-icon>
-
-                        <v-list-item-content>
-                            <v-list-item-title>{{ item.title }}</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                </v-list>
-            </v-navigation-drawer>
-
+            </v-list>
+        </v-navigation-drawer>
 
         <v-overlay :value="overlay" opacity="0">
             <v-progress-circular
@@ -102,64 +123,59 @@ export default {
         msg: String
     },
     data: () => ({
+        icons: [
+            'TaoFonts tao-weibo',
+            'TaoFonts tao-bilibili-line',
+            'TaoFonts tao-GitHub',
+            'TaoFonts tao-netease-cloud-music-line',
+            'TaoFonts tao-instagram',
+        ],
         iconColorIndex: 1,
         active: true,
         overlay: true,
+        introShow: false,
         drawer: null,
         items: [
-            { title: 'Home', icon: 'mdi-view-dashboard' },
-            { title: 'About', icon: 'mdi-forum' },
+            {title: 'Home', icon: 'mdi-view-dashboard'},
+            {title: 'About', icon: 'mdi-forum'},
         ],
     }),
-    watch:{
-
-    },
     methods: {
-        change(e) {
-            console.log(e)
-        },
         cancelOverlay() {
             setTimeout(() => {
                 this.overlay = false
+                this.introShow = true
             }, 2000)
         },
-        socialLinks(index){
+        socialLinks(index) {
             switch (index) {
                 case 0:
                     window.open('https://weibo.com/u/5020206258')
                     break;
                 case 1:
-                    window.open('https://github.com/shaobaitao')
-                    break;
-                case 2:
                     window.open('https://space.bilibili.com/391655670')
                     break;
+                case 2:
+                    window.open('https://github.com/shaobaitao')
+                    break;
+                case 3:
+                    window.open('https://music.163.com/#/user/home?id=376537898')
+                    break
+                case 4:
+                    window.open('https://www.instagram.com/shaobaitao/')
+                    break
             }
         }
     },
     mounted() {
         this.cancelOverlay();
     },
-    computed: {
-        getColor() {
-            switch (this.iconColorIndex) {
-                case 0:
-                    return 'rgba(230,22,45,1)'
-                case 1:
-                    return ''
-                case 2:
-                    return 'rgba(251,114,153,1)'
-                default:
-                    return ''
-            }
-        },
-    },
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.ScrollY-enter-active {
+.ScrollY-enter-active, .ScrollY-leave-active {
     transition: all 1s ease;
 }
 
@@ -168,11 +184,7 @@ export default {
     opacity: 0;
 }
 
-.ScrollYReverse-enter-active {
-    transition: all 1s ease;
-}
-
-.ScrollYReverse-enter {
+.ScrollY-leave-to {
     transform: translateY(-50px);
     opacity: 0;
 }
@@ -198,8 +210,8 @@ export default {
     padding: 5vh 10vw;
     width: 65vw;
     max-width: 1000px;
-    text-align:justify;
-    text-justify:inter-word;
+    text-align: justify;
+    text-justify: inter-word;
 
 }
 
@@ -222,7 +234,7 @@ h2 {
 
 h3 {
     font-size: 1.3em;
-    margin: 40px 0 0;
+    margin: 20px 0 0;
 }
 
 h4 {
@@ -232,16 +244,16 @@ h4 {
 
 @media screen and (max-width: 1080px) {
     h3 {
-        font-size: 1.5em;
+        font-size: 1.3em;
     }
 
     .introduction {
         width: 90vw;
     }
 
-    .v-bottom-navigation {
-        position: static;
-        box-shadow: none;
-    }
+    /*.v-bottom-navigation {*/
+    /*    position: static;*/
+    /*    box-shadow: none;*/
+    /*}*/
 }
 </style>
