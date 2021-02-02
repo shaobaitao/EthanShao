@@ -49,24 +49,17 @@
                 absolute
                 v-show="!overlay"
             >
-                <v-card flat tile class="text-center" width="100vw" color="rgba(0,0,0,0)"
-                >
+                <v-card flat tile class="text-center" width="100vw" color="rgba(0,0,0,0)">
                     <v-card-text>
                         <v-btn icon v-for="(icon, index) in icons" :key="icon" class="mx-2 white--text">
-                            <i :class="icon"  @click="socialLinks(index)"></i>
+                            <i :class="icon" @click="socialLinks(index)"></i>
                         </v-btn>
-                        <a class="font-weight-black" style="color:aliceblue; display: block; font-size: 0.3em; text-decoration:none;"
+                        <a class="font-weight-black"
+                           style="color:aliceblue; display: block; font-size: 0.3em; text-decoration:none;"
                            href="https://beian.miit.gov.cn/">
-                        赣ICP备19009243号
+                            赣ICP备19009243号
                         </a>
                     </v-card-text>
-
-<!--                    <v-card-text class="white&#45;&#45;text">-->
-
-<!--                            赣ICP备19009243号-->
-
-<!--&lt;!&ndash;                        <a id="ICP" href="http://www.beian.miit.gov.cn"></a>&ndash;&gt;-->
-<!--                    </v-card-text>-->
                 </v-card>
             </v-footer>
         </transition>
@@ -101,13 +94,12 @@
                         <v-list-item-title @click="projectLinks(item.link)">{{ item.title }}</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-
             </v-list>
             <template v-slot:append>
-            <div class="pa-2">
-                <span>Powered by <br><v-icon>mdi-vuejs</v-icon>Vue.js<v-icon>mdi-vuetify</v-icon>Vuetify.js</span>
-            </div>
-        </template>
+                <div class="pa-2">
+                    <span>Powered by <br><v-icon>mdi-vuejs</v-icon>Vue.js<v-icon>mdi-vuetify</v-icon>Vuetify.js</span>
+                </div>
+            </template>
         </v-navigation-drawer>
 
         <v-overlay :value="overlay" opacity="0">
@@ -139,14 +131,14 @@ export default {
         introShow: false,
         drawer: null,
         projects: [
-            {icon: 'mdi-home-account',title: 'Old homepage/旧主页',link:''},
-            {icon: 'mdi-book-open-variant',title: 'Blog/博客',link:'http://shaobaitao.cn/blog'},
-            {icon: 'mdi-file-question-outline',title: 'Vue Questionnaire/问卷',link:'http://shaobaitao.cn/blog'},
-            {icon: 'mdi-music',title: 'Vue Player/Vue播放器',link:'http://shaobaitao.cn/VuePlayer'},
-            {icon: 'mdi-music-box',title: 'JS Player/JS播放器',link:'http://shaobaitao.cn/myplayer'},
-            {icon: 'mdi-music-circle',title: 'MK Player/MK播放器',link:'http://shaobaitao.cn/player'},
-            {icon: 'mdi-chess-pawn',title: 'Reversi/黑白棋',link:'http://shaobaitao.cn/othello'},
-            {icon: 'mdi-chess-knight',title: 'Gobang/五子棋',link:'http://shaobaitao.cn/wuziqi'},
+            {icon: 'mdi-home-account', title: 'Old homepage/旧主页', link: 'http://shaobaitao.cn/old.php'},
+            {icon: 'mdi-book-open-variant', title: 'Blog/博客', link: 'http://shaobaitao.cn/blog'},
+            {icon: 'mdi-file-question-outline', title: 'Vue Questionnaire/问卷', link: 'http://vue.shaobaitao.cn'},
+            {icon: 'mdi-music', title: 'Vue Player/Vue播放器', link: 'http://shaobaitao.cn/VuePlayer'},
+            {icon: 'mdi-music-box', title: 'JS Player/JS播放器', link: 'http://shaobaitao.cn/myplayer'},
+            {icon: 'mdi-music-circle', title: 'MK Player/MK播放器', link: 'http://shaobaitao.cn/player'},
+            {icon: 'mdi-chess-pawn', title: 'Reversi/黑白棋', link: 'http://shaobaitao.cn/othello'},
+            {icon: 'mdi-chess-knight', title: 'Gobang/五子棋', link: 'http://shaobaitao.cn/wuziqi'},
         ],
     }),
     methods: {
@@ -175,7 +167,7 @@ export default {
                     break
             }
         },
-        projectLinks(link){
+        projectLinks(link) {
             window.open(link)
         }
     },
@@ -211,7 +203,6 @@ export default {
     flex-direction: column;
     font-size: calc(10px + 0.33vw);
     color: aliceblue;
-
 }
 
 .TaoFonts {
@@ -225,15 +216,6 @@ export default {
     text-align: justify;
     text-justify: inter-word;
     cursor: pointer;
-}
-
-.v-bottom-navigation {
-    position: fixed;
-    bottom: 0;
-}
-
-.v-item-group.v-bottom-navigation {
-    box-shadow: none;
 }
 
 h1 {
@@ -262,10 +244,5 @@ h4 {
     .introduction {
         width: 90vw;
     }
-
-    /*.v-bottom-navigation {*/
-    /*    position: static;*/
-    /*    box-shadow: none;*/
-    /*}*/
 }
 </style>
